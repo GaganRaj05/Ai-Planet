@@ -1,12 +1,12 @@
 from fastapi import APIRouter, UploadFile, File, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.schemas.pdf import PDFUploadResponse  
+from app.schemas.pdf import PDFUploadResponse, QuestionRequest
 from app.utils.db import get_db
 from app.dependency.dependencies import get_authenticated_email
 from app.db.models import PDF
 import uuid
 import fitz
-
+from app.core.qa_engine import answer_question
 from app.db.models import User
 
 
@@ -58,6 +58,18 @@ async def get_pdfs(db:Session=Depends(get_db)):
     try:
         pdfs =  db.query(PDF).all()
         return {"pdf":pdfs}
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=500, detail="Some error occured please try again later")
+    
+
+@router.post("/ask-question")
+async def ask_question(request: QuestionRequest, db: Session = Depends(get_db),email:str = Depends(get_authenticated_email)):
+    try:
+        db_result = db.query(PDF).filter(PDF.id == request.pdf_id).first()
+        pdf_text = db_result.pdf_contents
+        answer = await answer_question(pdf_text, f"This is content extracted from a PDF. Now, answer the following question: {request.question}")
+        return {"answer": answer}
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail="Some error occured please try again later")

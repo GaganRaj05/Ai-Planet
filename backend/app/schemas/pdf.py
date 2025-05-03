@@ -13,3 +13,7 @@ class PDFUploadResponse(BaseModel):
     
     class Config:
         orm_mode = True  
+        
+class QuestionRequest(BaseModel):
+    pdf_id:str
+    question:str

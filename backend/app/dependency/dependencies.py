@@ -14,3 +14,5 @@ async def get_authenticated_email(auth_token: str = Cookie(None)) -> str:
     except JWTError as e:
         print(f"JWT Error: {str(e)}")
         raise HTTPException(status_code=401, detail="Invalid token")
+    
+    
