@@ -1,0 +1,15 @@
+.nav-btn {
+    width: 100px;
+    height: 39px;
+    margin-right: 10px;
+    border-radius: 6px;
+    font-weight: 700;
+    border: 1px solid black;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+.upload {
+    width: 150px;
+    margin-right: 50px;
+
+}
