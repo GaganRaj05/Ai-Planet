@@ -4,26 +4,65 @@ import "./navBar.css";
 import { useAuth } from "../../context/AuthContext";
 import Button from "../ui/Button";
 import { useNavigate } from "react-router-dom";
-const NavBar = ()=> {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const {user} = useAuth()
-    
-    const navigate = useNavigate();
+import Login from "./Login";
+import SignUp from "./SignUp";
 
-    return (
-        <div className="nav-bar-container">
-            <nav className="nav-bar">
-                <img className="nav-logo" src={Logo} alt=""  onClick={(e)=>{e.preventDefault(); navigate("/")}}/>
-                {!user && (
-                    <div>
-                        <Button classname="nav-btn login">login</Button>
-                        <Button classname="nav-btn sign-up">sign up</Button>                    
-                        <Button classname="nav-btn upload">upload pdf</Button>                    
-                    </div>
-                )}
-            </nav>
-        </div>
-    )
-}
+const NavBar = () => {
+  const { user } = useAuth();
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isSignUpOpen, setIsSignUpOpen] = useState(false);
+  const navigate = useNavigate();
+
+  return (
+    <div className="nav-bar-container">
+      <nav className="nav-bar">
+        <img
+          className="nav-logo"
+          src={Logo}
+          alt=""
+          onClick={(e) => {
+            e.preventDefault();
+            navigate("/");
+          }}
+        />
+        {!user && (
+          <div>
+            <Button
+              classname="nav-btn login"
+              onClick={() => setIsLoginOpen(true)}
+            >
+              login
+            </Button>
+            <Button
+              classname="nav-btn sign-up"
+              onClick={() => setIsSignUpOpen(true)}
+            >
+              sign up
+            </Button>
+            <Button classname="nav-btn upload">upload pdf</Button>
+          </div>
+        )}
+      </nav>
+      {isLoginOpen && (
+        <Login
+          onClose={() => setIsLoginOpen(false)}
+          onRegisterClick={() => {
+            setIsLoginOpen(false);
+            setIsSignUpOpen(true);
+          }}
+        />
+      )}
+      {isSignUpOpen && (
+        <SignUp
+          onClose={() => setIsSignUpOpen(false)}
+          onLoginClick={() => {
+            setIsSignUpOpen(false);
+            setIsLoginOpen(true);
+          }}
+        />
+      )}
+    </div>
+  );
+};
 
 export default NavBar;

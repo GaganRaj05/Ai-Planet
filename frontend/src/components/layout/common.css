@@ -1,0 +1,115 @@
+.modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+  }
+  
+  .modal-content {
+    overflow-y: auto;
+    background: #0d1114;
+    padding: 24px;
+    border-radius: 10px;
+    height: 450px;
+    width:350px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    transform: scale(0.95);
+    animation: fadeIn 0.3s ease-in-out forwards;
+    color: white;
+    font-size: 2px;
+}
+  
+  .close-btn {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+    color: #bbb;
+    transition: color 0.2s;
+    background-color: #0d1114;
+    color: white;
+    border: none;
+  }
+  
+  .close-btn:hover {
+    color: white;
+  }
+  
+  .modal-content input {
+    width: 320px;
+    padding: 12px;
+    margin-bottom: 12px;
+    background-color: #0d1114;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    outline: none;
+  }
+  
+  .modal-content input:focus {
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+  }
+  
+  .login-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: #0d1114;
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .login-submit:hover {
+    background-color: #bbb;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .modal h2 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .modal-content label {
+    margin-top: 15px;
+  }
+  .modal-content form button {
+    font-family: "Bytesized", sans-serif;
+    font-size: 15px;
+    margin-top: 15px;
+}
+.modal-content p {
+    margin-top: 15px;
+    font-size: 25px;
+}
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+  text-decoration:underline;
+  color: gold;
+}
+
+.err-message {
+  color: red;
+}
+.login-btn:hover {
+  background-color: #2a3235;
+}
+
