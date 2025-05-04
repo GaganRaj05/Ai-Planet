@@ -8,22 +8,29 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 import { logoutService } from "../../services/auth";
 import { toast } from "react-toastify";
-const NavBar = () => {
-  const { user, setUser } = useAuth();
+import UploadPdf from "./UploadPdf"; 
+
+const NavBar = ({onLogout}) => {
+  const { user, setUser, pdfName, setPdfName, setPdfId } = useAuth();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isSignUpOpen, setIsSignUpOpen] = useState(false);
+  const [isUploadOpen, setIsUploadOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogoutClick = async(e)=> {
-    e.preventDefault();
+  const handleLogoutClick = async(e) => {
     const response = await logoutService();
     if(response.eror) {
       toast.error(response.error === "Failed to fetch" ? "Some error occured please try again later" : response.error);
       return;
     }
     setUser(null);
+    setPdfId(null);
+    setPdfName(null);
+    onLogout();
     toast.success("Logout successfull");
+    navigate("/",{replace:true})
   }
+
   return (
     <div className="nav-bar-container">
       <nav className="nav-bar">
@@ -42,20 +49,29 @@ const NavBar = () => {
               classname="nav-btn login"
               onClick={() => setIsLoginOpen(true)}
             >
-              login
+              Login
             </Button>
             <Button
               classname="nav-btn sign-up"
               onClick={() => setIsSignUpOpen(true)}
             >
-              sign up
+              Sign up
             </Button>
           </div>
         )}
         {user && (
           <div>
             <Button classname={"nav-btn"} onClick={(e)=>handleLogoutClick(e)}>Logout</Button>
-            <Button classname="nav-btn upload">upload pdf</Button>
+            {pdfName && <Button classname={" pdf-name"} >
+              {pdfName}
+            </Button>}
+            <Button 
+              classname="nav-btn upload" 
+              onClick={() => setIsUploadOpen(true)}
+            >
+              upload PDF
+            </Button>
+            
           </div>
         )}
       </nav>
@@ -76,6 +92,9 @@ const NavBar = () => {
             setIsLoginOpen(true);
           }}
         />
+      )}
+      {isUploadOpen && (
+        <UploadPdf onClose={() => setIsUploadOpen(false)} />
       )}
     </div>
   );

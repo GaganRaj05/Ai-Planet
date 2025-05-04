@@ -6,7 +6,8 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({children})=> {
     const [user, setUser] = useState(null);
-
+    const [pdfName, setPdfName] = useState("");
+    const [pdfId, setPdfId] = useState('');
     useEffect(()=> {
         async function fetchUser() {
             const response = await checkAuth();
@@ -22,7 +23,7 @@ export const AuthProvider = ({children})=> {
         console.log(user);
     },[user])
     return (
-        <AuthContext.Provider value = {{user, setUser}}>
+        <AuthContext.Provider value = {{user, setUser, pdfName, setPdfName, pdfId,setPdfId}}>
             {children}
         </AuthContext.Provider>
     )

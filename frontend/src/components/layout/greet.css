@@ -1,0 +1,14 @@
+.greet-container {
+    height: 400px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: black;
+}
+
+.greet-container h1 {
+    font-size: 45px;
+    margin-top: 50px;
+    margin-bottom: 15px;
+}

@@ -11,5 +11,11 @@
 .upload {
     width: 150px;
     margin-right: 50px;
-
+}
+.pdf-name {
+    background-color: white;
+    border: 0px;
+    margin-left: 0;
+    min-width: 100px;
+    color: #0fa958;
 }
