@@ -6,13 +6,24 @@ import Button from "../ui/Button";
 import { useNavigate } from "react-router-dom";
 import Login from "./Login";
 import SignUp from "./SignUp";
-
+import { logoutService } from "../../services/auth";
+import { toast } from "react-toastify";
 const NavBar = () => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isSignUpOpen, setIsSignUpOpen] = useState(false);
   const navigate = useNavigate();
 
+  const handleLogoutClick = async(e)=> {
+    e.preventDefault();
+    const response = await logoutService();
+    if(response.eror) {
+      toast.error(response.error === "Failed to fetch" ? "Some error occured please try again later" : response.error);
+      return;
+    }
+    setUser(null);
+    toast.success("Logout successfull");
+  }
   return (
     <div className="nav-bar-container">
       <nav className="nav-bar">
@@ -39,6 +50,11 @@ const NavBar = () => {
             >
               sign up
             </Button>
+          </div>
+        )}
+        {user && (
+          <div>
+            <Button classname={"nav-btn"} onClick={(e)=>handleLogoutClick(e)}>Logout</Button>
             <Button classname="nav-btn upload">upload pdf</Button>
           </div>
         )}

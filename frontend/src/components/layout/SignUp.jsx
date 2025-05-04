@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import "./common.css";
-import Login from "./Login";
+import {signUpService} from "../../services/auth"
 function SignUp({ onClose, onLoginClick }) {
     const [formData, setFormData] = useState({
         name: "",
@@ -11,24 +11,26 @@ function SignUp({ onClose, onLoginClick }) {
     });
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleChange = (e) => {
+    const handleChange =  (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
 
-    const validateForm = () => {
-        if (formData.password !== formData.confirmPassword) {
-            toast.error("Passwords do not match");
-            return false;
-        }
-        if (formData.password.length < 6) {
-            toast.error("Password must be at least 6 characters");
-            return false;
-        }
-        return true;
-    };
 
     const handleSubmit = async (e) => {
+        e.preventDefault();
+        if(formData.password !==formData.confirmPassword) {
+            toast.error("Passwords do not match")
+            return;
+        }
+        const response = await signUpService(formData);
+        if(response.error) {
+            toast.error(response.error === "Failed to fetch" ? "Some error occured please try again later":response.error);
+            return;
+        }
+        onLoginClick();
+        toast.success("Account created successfully! Please Login");
+
     };
 
     return (
@@ -37,7 +39,7 @@ function SignUp({ onClose, onLoginClick }) {
                 <button className="close-btn" onClick={onClose}>&times;</button>
                 <h2 className="text-center text-xl font-semibold mb-4 text-white">Sign Up</h2>
 
-                <form method="POST" onSubmit={handleSubmit} encType="multipart/form-data">
+                <form method="POST" onSubmit={(e)=>handleSubmit(e)} encType="multipart/form-data">
 
                     <label htmlFor="name">Name</label>
                     <input 
@@ -92,7 +94,7 @@ function SignUp({ onClose, onLoginClick }) {
                     >
                         {isLoading ? "Submitting..." : "Submit"}
                     </button>
-                    <p>Already a user  ?<a  ><button style={{border:"0px",color:"gold",fontSize:"20px",backgroundColor:"#0d1114",cursor:"pointer"}} onClick={()=>onLoginClick()}>Login</button></a></p>
+                    <p>Already a user  ?<a  ><button style={{border:"0px",color:"#0fa958",fontSize:"22px",backgroundColor:"white",cursor:"pointer"}} onClick={()=>onLoginClick()}>Login</button></a></p>
 
                 </form>
             </div>
