@@ -1,5 +1,5 @@
 .qa-form-container {
-    height: calc(100vh - (100vh - 106px - 76px) - 76px);
+    min-height: calc(100vh - (100vh - 106px - 76px) - 76px);
     width: 100%;
     background-color: #ffffff;
     display: flex;
@@ -16,7 +16,7 @@
     border:1px solid #E4E8EE
 }
 .qa-form input {
-    width: calc(1218px - 50px);
+    width: calc(100% - 50px);
     min-height: 56px;
     max-height: auto;
     border: 0px;
@@ -32,4 +32,38 @@
     border: 0;
     font-size: 20px;
     color: rgb(102, 97, 97);
+}
+
+@media only screen and (max-width:1024px) {
+    .qa-form {
+        width:600px;
+    }
+    .qa-form input {
+        width:550px
+    }
+    
+}
+@media only screen and (max-width:600px) {
+    .qa-form {
+        width:500px;
+    }
+    .qa-form input {
+        width:450px;
+    }
+}
+@media only screen and (max-width:521px) {
+    .qa-form {
+        width:350px;
+    }
+    .qa-form input {
+        width:300px;
+    }
+}
+@media only screen and (max-width:320px) {
+    .qa-form {
+        width:250px;
+    }
+    .qa-form input {
+        width:200px
+    }
 }

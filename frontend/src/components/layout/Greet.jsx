@@ -14,7 +14,7 @@ const Greet = ()=> {
     return (
         <div className="greet-container">
             <h1>Welcome to <span className="cr">AI PLANET!...</span></h1>
-            <p>Upload a PDF, To start asking questions.. <a href="" onClick={(e)=>handleClick(e)}> <span className="cr">Upload..</span> </a> </p>
+            <p class="greet-info">Upload a PDF, To start asking questions.. <a href="" onClick={(e)=>handleClick(e)}> <span className="cr">Upload..</span> </a> </p>
         </div>
     )
 }

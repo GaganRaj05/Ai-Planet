@@ -16,6 +16,35 @@
     background-color: white;
     border: 0px;
     margin-left: 0;
-    min-width: 100px;
+    width: 100px;
     color: #0fa958;
+}
+@media only screen and (max-width:565px) {
+    .nav-btn {
+        width:70px;
+        height:21px;
+        font-size:10px;
+    }
+    .pdf-name {
+        width:70px;
+        height:21px;
+        margin:0 10px 0 0;
+        font-size:10px;
+    }
+    .upload {
+        margin-right:10px;
+    }
+}
+
+@media only screen and (max-width:325px) {
+    .nav-btn {
+        width:50px;
+        margin-right:5px
+    }
+    .upload {
+        width:70px
+    }
+    .pdf-name {
+        margin-right:5px;
+    }
 }

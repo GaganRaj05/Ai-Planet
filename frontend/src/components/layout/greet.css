@@ -12,3 +12,16 @@
     margin-top: 50px;
     margin-bottom: 15px;
 }
+
+@media only screen and (max-width:598px) {
+    .greet-container {
+        height:200px;
+        width:300px;
+    }
+    .greet-container h1 {
+        font-size:22.5px
+    }
+    .greet-info {
+        font-size:12px;
+    }
+}

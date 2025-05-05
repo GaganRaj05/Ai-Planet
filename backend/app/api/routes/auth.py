@@ -37,7 +37,7 @@ async def register_user(user:UserCreate, db:Session=Depends(get_db)):
         print(e)
         raise HTTPException(status_code=501,detail="Some error occured please try again later")
         
-    
+
 @router.post('/sign-in')
 def login_user(user:UserLogin, db:Session=Depends(get_db)):
     try:
