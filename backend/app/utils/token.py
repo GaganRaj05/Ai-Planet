@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from typing import Union, Any
 from app.core.config import SECRET_KEY, ALGORITHM
 
+#helper function to create jwt token
 def create_jwt_token(data: dict, expires_delta: timedelta = timedelta(hours=1)) -> str:
     try:
         to_encode = data.copy()

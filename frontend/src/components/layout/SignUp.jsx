@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import "./common.css";
+import { ClipLoader } from "react-spinners";
 import {signUpService} from "../../services/auth"
 function SignUp({ onClose, onLoginClick }) {
     const [formData, setFormData] = useState({
@@ -19,11 +20,14 @@ function SignUp({ onClose, onLoginClick }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
         if(formData.password !==formData.confirmPassword) {
             toast.error("Passwords do not match")
             return;
         }
+        setIsLoading(true);
         const response = await signUpService(formData);
+        setIsLoading(false);
         if(response.error) {
             toast.error(response.error === "Failed to fetch" ? "Some error occured please try again later":response.error);
             return;
@@ -92,7 +96,7 @@ function SignUp({ onClose, onLoginClick }) {
                         className="login-submit" 
                         disabled={isLoading}
                     >
-                        {isLoading ? "Submitting..." : "Submit"}
+                        {isLoading ?<ClipLoader size={20} color="#333"/> : "Submit"}
                     </button>
                     <p>Already a user  ?<a  ><button style={{border:"0px",color:"#0fa958",fontSize:"22px",backgroundColor:"white",cursor:"pointer"}} onClick={()=>onLoginClick()}>Login</button></a></p>
 

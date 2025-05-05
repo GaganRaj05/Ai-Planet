@@ -9,6 +9,7 @@ const Greet = ()=> {
             toast.error("Login to upload pdf files");
             return;
         }
+        toast.success("Use the upload button in the top right corner")
 
     }
     return (

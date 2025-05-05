@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 import uuid
 Base = declarative_base()
-
+#model to store user info
 class User(Base):
     __tablename__ ="users"
     id = Column(Integer, primary_key=True, index=True)
@@ -12,7 +12,7 @@ class User(Base):
     password = Column(String, nullable=True)
     pdfs = relationship('PDF', back_populates="user")
     
-    
+#model to store pdf contents 
 class PDF(Base):
     __tablename__ = "pdf_info"
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))

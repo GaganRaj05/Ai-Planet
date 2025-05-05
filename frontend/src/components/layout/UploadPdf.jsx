@@ -3,6 +3,7 @@ import "./UploadPdf.css";
 import { useAuth } from "../../context/AuthContext";
 import { uploadPdf } from "../../services/pdfServices";
 import { toast } from "react-toastify";
+import {ClipLoader} from "react-spinners";
 const UploadPdf = ({ onClose }) => {
   const [file, setFile] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -43,11 +44,11 @@ const UploadPdf = ({ onClose }) => {
       console.log("File ready for upload:", file.name);
       setIsLoading(true);
       const response = await uploadPdf(file);
+      setIsLoading(false);
       if(response.error) {
         toast.error("Some error occured while uploading the pdf");
         return;
       }
-      setIsLoading(false);
       setPdfName(response.filename);
       setPdfId(response.pdf_id);
       toast.success("Pdf file uploaded successfully");
@@ -91,7 +92,7 @@ const UploadPdf = ({ onClose }) => {
             )}
           </div>
           <button type="submit" className="upload-btn" disabled={isLoading}>
-            Upload
+            {isLoading ? <ClipLoader/> : "Upload pdf"}
           </button>
         </form>
       </div>

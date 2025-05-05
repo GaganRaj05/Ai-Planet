@@ -1,4 +1,5 @@
 from pydantic import BaseModel, EmailStr
+#schemas to validate incoming form data's
 
 class UserCreate(BaseModel):
     name:str

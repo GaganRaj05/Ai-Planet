@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import {  toast } from 'react-toastify';
 import { loginService } from "../../services/auth";
+import {ClipLoader} from "react-spinners"
 import "./common.css";
 function Login({onClose, onRegisterClick}) {
     const [formData, setFormData] = useState({email:"",password:""});
@@ -14,7 +15,10 @@ function Login({onClose, onRegisterClick}) {
 
     const handleSubmit = async(e)=> {
         e.preventDefault();
+          setIsLoading(true)
           const response = await loginService(formData);
+          setIsLoading(false);
+
           if(response.error) {
             toast.error(response.error === "Failed to fetch"? "Some error occured please try again later": response.error)
             return;
@@ -36,7 +40,7 @@ function Login({onClose, onRegisterClick}) {
             <input id="email" name="email" type="text" placeholder="Enter your email id" onChange={handleChange} value={formData.email} required />
             <label htmlFor="password">Password</label>
             <input id="password" name="password" type="password" placeholder="Enter your password" onChange={handleChange} value={formData.password} required />
-            <button type="submit" className="login-submit" disabled={isLoading}>Submit</button>
+            <button type="submit" className="login-submit" disabled={isLoading}>{isLoading ? <ClipLoader size={20} color="#333"/> :"Submit"}</button>
           <p>Not a user yet ?<a  ><button style={{border:"0px",color:"#0fa958",fontSize:"20px",backgroundColor:"white",cursor:"pointer"}} onClick={()=>onRegisterClick()}>Register</button></a></p>
 
           </form>

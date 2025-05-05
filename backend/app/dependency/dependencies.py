@@ -2,6 +2,7 @@ from fastapi import Cookie, HTTPException
 from jose import JWTError, jwt
 from app.core.config import SECRET_KEY, ALGORITHM
 
+#helper function to check if the user is authenticated or not
 async def get_authenticated_email(auth_token: str = Cookie(None)) -> str:
     if not auth_token:
         raise HTTPException(status_code=401, detail="Not authenticated")
