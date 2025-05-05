@@ -8,12 +8,12 @@ import uvicorn
 app = FastAPI()
 
 #middleware to set hosts 
-app.add_middleware(TrustedHostMiddleware, allowed_hosts=['localhost','127.0.0.1','0.0.0.0'])
+app.add_middleware(TrustedHostMiddleware, allowed_hosts=['*'])
 
 #cors for cross origin requests
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = ['http://localhost:5173'],
+    allow_origins = ['http://localhost:5173','https://ai-pdf-scanner-by-gagan.netlify.app'],
     allow_credentials = True,
     allow_methods=['*'],
     allow_headers = ['*']
@@ -29,4 +29,4 @@ app.include_router(pdf.router, prefix='/uploads')
 #running the app on uvicorn asgi server 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="localhost", port=8000)
+    uvicorn.run("main:app", host="0.0.0.0", port=8000)
