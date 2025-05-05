@@ -73,7 +73,7 @@ def login_user(user:UserLogin, db:Session=Depends(get_db)):
             httponly=True, 
             max_age=36000, 
             expires=int((datetime.utcnow() + timedelta(hours=10)).timestamp()),  
-            samesite="Lax",
+            samesite="none",
             secure=True,  
             path="/",     
         )
@@ -119,7 +119,8 @@ async def logout():
             key="auth_token",
             path="/",
             httponly=False,
-            samesite='Lax',
+            samesite='none',
+            secure=True
         )
         return response
     except HTTPException:
