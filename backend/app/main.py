@@ -4,6 +4,7 @@ from app.db.database import init_db
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
+from app.core.config import PORT
 import uvicorn
 app = FastAPI()
 
@@ -29,4 +30,4 @@ app.include_router(pdf.router, prefix='/uploads')
 #running the app on uvicorn asgi server 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000)
+    uvicorn.run("main:app", host="0.0.0.0", port=PORT)
