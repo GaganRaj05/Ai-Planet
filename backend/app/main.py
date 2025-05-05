@@ -30,4 +30,10 @@ app.include_router(pdf.router, prefix='/uploads')
 #running the app on uvicorn asgi server 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=PORT)
+    PORT = int(os.getenv("PORT", 8000))  
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=PORT,
+        workers=2  
+    )
