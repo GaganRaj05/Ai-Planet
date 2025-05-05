@@ -6,34 +6,36 @@ from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from app.core.config import PORT
 import uvicorn
+
 app = FastAPI()
 
-#middleware to set hosts 
+# middleware to set hosts 
 app.add_middleware(TrustedHostMiddleware, allowed_hosts=['*'])
 
-#cors for cross origin requests
+# CORS for cross origin requests
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = ['http://localhost:5173','https://ai-pdf-scanner-by-gagan.netlify.app'],
-    allow_credentials = True,
+    allow_origins=['http://localhost:5173', 'https://ai-pdf-scanner-by-gagan.netlify.app'],
+    allow_credentials=True,
     allow_methods=['*'],
-    allow_headers = ['*']
+    allow_headers=['*']
 )
 
-#used to compress the http responses 
+# used to compress the http responses 
 app.add_middleware(GZipMiddleware, minimum_size=1000)
-init_db()#initailise the models in the db
 
-#initialising the router
+init_db()  # initialise the models in the db
+
+# initialising the router
 app.include_router(auth.router, prefix="/auth")
 app.include_router(pdf.router, prefix='/uploads')
-#running the app on uvicorn asgi server 
 
+# running the app on uvicorn asgi server 
 if __name__ == "__main__":
-    PORT = int(os.getenv("PORT", 8000))  
+    port = PORT  # Use env var or fallback to 8000
     uvicorn.run(
         "main:app",
         host="0.0.0.0",
-        port=PORT,
-        workers=2  
+        port=port,
+        workers=2
     )
