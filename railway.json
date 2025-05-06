@@ -1,6 +1,7 @@
 {
   "build": {
     "builder": "DOCKER",
-    "dockerfilePath": "backend/Dockerfile"
+    "dockerfilePath": "backend/Dockerfile",
+    "swap": "1G"
   }
 }
